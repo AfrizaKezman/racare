@@ -5,8 +5,8 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 
 export const metadata = {
-  title: 'TokoOnline - Sistem Kasir Modern',
-  description: 'Aplikasi kasir modern untuk bisnis Anda',
+  title: 'Racare - Jual Beli Skincare & Kosmetik',
+  description: 'Aplikasi jual beli skincare dan kosmetik modern untuk bisnis Anda',
 }
 
 export default function RootLayout({ children }) {
