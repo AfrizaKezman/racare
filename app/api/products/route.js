@@ -1,5 +1,6 @@
 import clientPromise from '@/app/lib/mongodb';
 import { NextResponse } from 'next/server';
+import { ObjectId } from 'mongodb';
 
 // GET: Fetch all products
 export async function GET() {
@@ -77,7 +78,7 @@ export async function PUT(request) {
     const client = await clientPromise;
     const db = client.db();
     const result = await db.collection('products').updateOne(
-      { _id: id },
+      { _id: new ObjectId(id) },
       {
         $set: {
           ...updateData,
@@ -121,7 +122,7 @@ export async function DELETE(request) {
 
     const client = await clientPromise;
     const db = client.db();
-    const result = await db.collection('products').deleteOne({ _id: id });
+    const result = await db.collection('products').deleteOne({ _id: new ObjectId(id) });
 
     if (result.deletedCount === 0) {
       return NextResponse.json(
