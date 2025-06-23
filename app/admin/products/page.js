@@ -139,20 +139,20 @@ export default function ProductPage() {
       }
 
       if (response.ok) {
-        const data = await response.json();
+        // Ambil ulang data produk dari backend setelah update/insert
+        const fetchProducts = async () => {
+          try {
+            const res = await fetch('/api/products');
+            const data = await res.json();
+            setProducts(data);
+            setFilteredProducts(data);
+          } catch (error) {
+            console.error('Error fetching products:', error);
+          }
+        };
+        await fetchProducts();
 
-        if (isEditMode) {
-          // Update products list
-          setProducts(products.map(product =>
-            product.id === editingProduct.id ? { ...product, ...newProduct, id: editingProduct.id } : product
-          ));
-          alert('Menu berhasil diupdate!');
-        } else {
-          // Add to products list
-          setProducts([...products, data]);
-          alert('Menu berhasil ditambahkan!');
-        }
-
+        alert(isEditMode ? 'Menu berhasil diupdate!' : 'Menu berhasil ditambahkan!');
         resetForm();
         setIsModalOpen(false);
       } else {
